@@ -24,29 +24,33 @@ const topBar = (data: any) => {
               fontSize: indicatorsFontSize,
             }}
           >
-            💲 {data.cash}{' '}
+            💲 {data.cash.toFixed(0)}{' '}
           </p>
         </Tooltip>
         <Tooltip title='Income'>
           {data.income > 0 ? (
-            <p style={{ fontSize: indicatorsFontSize }}>📈 {data.income} </p>
+            <p style={{ fontSize: indicatorsFontSize }}>
+              📈 {data.income.toFixed(0)}{' '}
+            </p>
           ) : (
-            <p style={{ fontSize: indicatorsFontSize }}>📉 {data.income} </p>
+            <p style={{ fontSize: indicatorsFontSize }}>
+              📉 {data.income.toFixed(0)}{' '}
+            </p>
           )}
         </Tooltip>
         <Tooltip title='Stabiltiy'>
           <p style={{ fontSize: indicatorsFontSize, marginLeft: '20px' }}>
-            ⚖️ {data.stability}
+            ⚖️ {data.stability.toFixed(0)}
           </p>
         </Tooltip>
         <Tooltip title='Authority'>
           <p style={{ fontSize: indicatorsFontSize, marginLeft: '20px' }}>
-            🦾 {data.authority}
+            🦾 {data.authority.toFixed(0)}
           </p>
         </Tooltip>
         <Tooltip title='hdi'>
           <p style={{ fontSize: indicatorsFontSize, marginLeft: '20px' }}>
-            😃 {data.hdi}
+            😃 {data.hdi.toFixed(0)}
           </p>
         </Tooltip>
         <Tooltip title='innovation'>

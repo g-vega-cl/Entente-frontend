@@ -1,18 +1,17 @@
 import { Tooltip } from 'antd';
 
-// DO THIS ONE AND ALSO THE TIMER. ALSO A TIMER THAT REFRESHES DATA EVERY 10 SECONDS
 const EndTurnButton = (data: any) => {
   const indicatorsFontSize = '24px';
   const getTimeLeft = () => {
     if (data?.lastTurn) {
       const now = new Date();
       const secondsLeft = (
-        75 -
+        45 -
         (now.getTime() - new Date(data?.lastTurn).getTime()) / 1000
       ).toFixed(0);
       return `${secondsLeft}`;
     }
-    return '120';
+    return '45';
   };
 
   if (data?.nation_name) {

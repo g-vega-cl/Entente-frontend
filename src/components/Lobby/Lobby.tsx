@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Col, Row } from 'antd';
 import {
   uniqueNamesGenerator,
@@ -16,14 +16,12 @@ const Lobby = () => {
     localStorage.getItem('user_name') || ''
   );
   const [preferredNation, setPreferredNation] = useState<string>('france');
-  const [matchUserCountSocket, setMatchUserCountSocket] = useState<any>(1);
   const [findMatchSquareVisible, setFindSquareVisible] =
     useState<boolean>(false);
-  const findMatchEmitted = useRef<boolean>(false);
-  const findMatchEmitted2 = useRef<boolean>(false);
   const [refreshTurnData, setRefreshTurnData] = useState(false);
   const matchID = useRef<string>('');
   const [showEvent, setShowEvent] = useState(true);
+  const startDate = useRef(new Date());
 
   useEffect(() => {
     if (!name) {
@@ -45,7 +43,6 @@ const Lobby = () => {
       preferredNation,
     };
     await requestAxios.post(`/match/find_match`, matchData).then((res) => {
-      findMatchEmitted.current = true;
       matchID.current = res.data.matchID;
     });
     localStorage.setItem('user_name', name);
@@ -57,8 +54,6 @@ const Lobby = () => {
     refreshTurnData,
     setRefreshTurnData,
     'find_match',
-    findMatchEmitted,
-    findMatchEmitted2,
     true,
     showEvent,
     setShowEvent
@@ -111,11 +106,26 @@ const Lobby = () => {
               {preferredCountrySelect(preferredNation, setPreferredNation)}
             </Col>
           </Row>
+          <Row style={{ marginTop: '3vh' }}>
+            <Col style={{ margin: 'auto', display: 'flex' }}>
+              <p>Estimated wait: 60 seconds.</p>
+            </Col>
+          </Row>
           {findMatchSquareVisible && (
             <Row style={{ marginTop: '5vh' }}>
               <Col style={{ margin: 'auto', display: 'flex' }}>
-                <p style={{ fontSize: '16px', width: '28vw' }}>Finding match</p>
-                <p>{matchUserCountSocket}/6</p>
+                <p style={{ fontSize: '16px', width: '28vw' }}>
+                  Finding match...{' '}
+                </p>
+              </Col>
+              <Col style={{ margin: 'auto' }}>
+                <p>
+                  elapsedTime:{' '}
+                  {(
+                    (new Date().getTime() - startDate.current.getTime()) /
+                    1000
+                  ).toFixed(0)}
+                </p>
               </Col>
             </Row>
           )}

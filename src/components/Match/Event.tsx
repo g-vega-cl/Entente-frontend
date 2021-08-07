@@ -1,9 +1,7 @@
 import { Button, Row, Col } from 'antd';
 import { useParams } from 'react-router-dom';
-import GetTurn from './GetTurn';
 import requestAxios from '../Axios/requestAxios';
-//Note: We are letting people know the modifiers before choosing. But idk for now.
-//To fix just send event titles and descriptions and an identifier and send call to backend when it happens.
+
 const Event = (event: any, setShowEvent: any, turnData: any, sendData: any) => {
   const screenWidth = window.screen.availWidth;
   const eventVW = screenWidth < 1000 ? '80vw' : '50vw';
@@ -11,7 +9,6 @@ const Event = (event: any, setShowEvent: any, turnData: any, sendData: any) => {
   const params: any = useParams();
   const matchId = params?.id;
   const selectEventChoice = async (choice: string) => {
-    //HERE CREATE AND CALL API
     sendData.current = {};
     sendData.current.user_name = localStorage.getItem('user_name');
     sendData.current.match_id = matchId;
